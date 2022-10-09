@@ -45,13 +45,13 @@
         <Button
             android:id="@+id/btn_reserver"
             android:layout_width="match_parent"
-            android:layout_height="148dp"
+            android:layout_height="72dp"
             android:text="Réserver une table" />
 
         <Button
             android:id="@+id/btn_afficher"
             android:layout_width="match_parent"
-            android:layout_height="138dp"
+            android:layout_height="59dp"
             android:text="Afficher les réservations" />
 
     </LinearLayout>
