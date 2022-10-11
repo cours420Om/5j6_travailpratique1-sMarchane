@@ -77,7 +77,7 @@ public class ActiviteReservation extends AppCompatActivity {
             public void onClick(View view) {
 
                 Context contexte = getApplicationContext();
-                String texte = "Un champ est invalide";
+                String texte = "Un des champs est invalide";
                 int duree = Toast.LENGTH_SHORT;
 
                 if(et_date.equals("") || et_nom.equals("") || et_num.equals("")){
