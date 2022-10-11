@@ -42,12 +42,16 @@ public class restaurant implements Parcelable {
 
     @Override
     public String toString() {
-        return "restaurant{" +
+        return nomRestaurant;
+    }
+    public String toString2(){
+        return         "restaurant{" +
                 "noRestaurant=" + noRestaurant +
                 ", nomRestaurant='" + nomRestaurant + '\'' +
                 ", nbPlacesMax=" + nbPlacesMax +
                 ", nbPlacesRestantes=" + nbPlacesRestantes +
                 '}';
+
     }
 
     public int getNoRestaurant() {
