@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class ActiviteReservation extends AppCompatActivity {
@@ -36,12 +37,16 @@ public class ActiviteReservation extends AppCompatActivity {
     Button btn_reserver;
     Spinner spn_heureDebut;
     restaurant restau;
+    reservation res;
     SeekBar sb_placeReserver;
+
+    List<reservation> listReservation = new ArrayList<reservation>();
 
     private SimpleDateFormat dateFormater, heureFormater;
     private static int VALEUR = 5;
     String heureArrivee;
     String heureDepart;
+    int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +75,8 @@ public class ActiviteReservation extends AppCompatActivity {
         listFin.add("20:29");
         listFin.add("21:59");
         listFin.add("23:59");*/
+        String[] listeDebut = new String[] {"16:00", "17:30", "19:00", "20:30", "22:00"};
+        String[] listeFin = new String[] {"17:29", "18:59", "20:29", "21:59", "23:59"};
 
 
         btn_reserver.setOnClickListener(new View.OnClickListener() {
@@ -80,11 +87,25 @@ public class ActiviteReservation extends AppCompatActivity {
                 String texte = "Un des champs est invalide";
                 int duree = Toast.LENGTH_SHORT;
 
-                if(et_date.equals("") || et_nom.equals("") || et_num.equals("")){
+                if(sb_placeReserver.getProgress() < 1 || et_nom.getText().toString().matches("") || et_date.getText().toString().matches("")
+                        || et_nom.getText().toString().matches("")){
                     Toast msg_Toast = Toast.makeText(contexte, texte, duree);
                     msg_Toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
                     msg_Toast.show();
 
+                }else{
+                    /*res = new reservation(1, " " + et_date.getText() + " " + restau.getNbPlacesRestantes() + " " + spn_heureDebut.getSelectedItem() + " " +
+                            et_heureDepart.getText() + " " + et_nom.getText() + " " + et_num.getText());*/
+
+                     res = new reservation(1, " " + et_date.getText(), restau.getNbPlacesRestantes(),
+                             " " + spn_heureDebut.getSelectedItem(),
+                             " " + et_heureDepart.getText(), " " + et_nom.getText(), " " + et_num.getText());
+
+                     listReservation.add(res);
+
+                    Toast msg_Toast2 = Toast.makeText(getApplicationContext(), "La réservation à été sauvegardé", Toast.LENGTH_SHORT);
+                    msg_Toast2.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
+                    msg_Toast2.show();
                 }
 
 
@@ -93,8 +114,6 @@ public class ActiviteReservation extends AppCompatActivity {
         });
 
 
-        String[] listeDebut = new String[] {"16:00", "17:30", "19:00", "20:30", "22:00"};
-        String[] listeFin = new String[] {"17:29", "18:59", "20:29", "21:59", "23:59"};
 
         ArrayAdapter<String> adaptateur = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listeDebut);
         adaptateur.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
