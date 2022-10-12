@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -40,7 +41,7 @@ public class ActiviteReservation extends AppCompatActivity {
     reservation res;
     SeekBar sb_placeReserver;
 
-    List<reservation> listReservation = new ArrayList<reservation>();
+    ArrayList<reservation> listReservation = new ArrayList<reservation>();
 
     private SimpleDateFormat dateFormater, heureFormater;
     private static int VALEUR = 5;
@@ -82,7 +83,7 @@ public class ActiviteReservation extends AppCompatActivity {
         btn_reserver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent retour = new Intent();
                 Context contexte = getApplicationContext();
                 String texte = "Un des champs est invalide";
                 int duree = Toast.LENGTH_SHORT;
@@ -102,6 +103,13 @@ public class ActiviteReservation extends AppCompatActivity {
                              " " + et_heureDepart.getText(), " " + et_nom.getText(), " " + et_num.getText());
 
                      listReservation.add(res);
+
+                     Bundle b_rep = new Bundle();
+                     b_rep.putParcelableArrayList("res", listReservation);
+                     retour.putExtras(b_rep);
+                     setResult(RESULT_OK, retour);
+
+
 
                     Toast msg_Toast2 = Toast.makeText(getApplicationContext(), "La réservation à été sauvegardé", Toast.LENGTH_SHORT);
                     msg_Toast2.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
