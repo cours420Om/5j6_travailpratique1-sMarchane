@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -24,6 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     restaurant restau;
+    reservation res;
     List<restaurant> listRestau = new ArrayList<restaurant>();
     restaurant chezPierre;
     restaurant MacDonalds;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button bouton;
 
+
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         Bundle bundle = result.getData().getExtras();
 
                         listReservation = bundle.getParcelableArrayList("res");
-                        Log.i("Test", String.valueOf(listReservation.get(0).noReservation));
+                        Log.i("Test", String.valueOf(listReservation.get(0)));
                     }
 
 
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
     );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +97,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent_afficher = new Intent(MainActivity.this, ActiviteAffichage.class);
+                Bundle bReservation = new Bundle();
+                bReservation.putParcelableArrayList("reservation", listReservation);
+                intent_afficher.putExtras(bReservation);
                 intent_afficher.putExtra("restaurant", restau);
-                activityResultLauncher.launch(intent_afficher);
+                startActivity(intent_afficher);
 
 
 

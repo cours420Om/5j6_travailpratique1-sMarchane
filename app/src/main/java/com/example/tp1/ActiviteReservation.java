@@ -89,7 +89,7 @@ public class ActiviteReservation extends AppCompatActivity {
                 int duree = Toast.LENGTH_SHORT;
 
                 if(sb_placeReserver.getProgress() < 1 || et_nom.getText().toString().matches("") || et_date.getText().toString().matches("")
-                        || et_nom.getText().toString().matches("")){
+                        || et_num.getText().toString().matches("")){
                     Toast msg_Toast = Toast.makeText(contexte, texte, duree);
                     msg_Toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
                     msg_Toast.show();
@@ -107,7 +107,11 @@ public class ActiviteReservation extends AppCompatActivity {
                      Bundle b_rep = new Bundle();
                      b_rep.putParcelableArrayList("res", listReservation);
                      retour.putExtras(b_rep);
+                    //retour.putExtra("reservation", res);
                      setResult(RESULT_OK, retour);
+
+
+                    //retour.putExtra("reservation", res);
 
 
 
