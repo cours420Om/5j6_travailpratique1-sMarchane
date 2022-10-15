@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_200"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-58dp">
+
+        <ImageView
+            android:id="@+id/iv_Reservation"
+            android:layout_width="150dp"
+            android:layout_height="149dp"
+            android:layout_marginLeft="150dp"
+            app:srcCompat="@drawable/reservation" />
+
+        <TextView
+            android:id="@+id/tv_Titre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="000dp"
+            android:text="ReservoTable"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <Spinner
+            android:id="@+id/spin_liste"
+            android:layout_width="914dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/tv_placeRestante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <Button
+            android:id="@+id/btn_reserver"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginTop="20dp"
+            android:text="Réserver une table" />
+
+        <Button
+            android:id="@+id/btn_afficher"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:text="Afficher les réservations" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

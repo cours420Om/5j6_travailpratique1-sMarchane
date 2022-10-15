@@ -14,29 +14,32 @@ import java.util.List;
 public class adapterReservation extends BaseAdapter {
 
     private Context dContexte;
-    private List<reservation> resListe = new ArrayList<>();
+    private List<reservation> listReservation = new ArrayList<>();
     private TextView tv_nom, tv_place, tv_date;
     private ImageView iv_table;
 
 
     public adapterReservation(Context _context, ArrayList<reservation> _liste){
-        this.resListe = _liste;
+        this.listReservation = _liste;
         this.dContexte = _context;
 
     }
 
     @Override
     public int getCount() {
-        return resListe.size();
+
+        return listReservation.size();
     }
 
     @Override
     public reservation getItem(int i) {
-        return resListe.get(i);
+
+        return listReservation.get(i);
     }
 
     @Override
     public long getItemId(int i) {
+
         return i;
     }
 
@@ -45,13 +48,13 @@ public class adapterReservation extends BaseAdapter {
 
         view = LayoutInflater.from(dContexte).inflate(R.layout.list_view_row, parent, false);
         tv_nom = view.findViewById(R.id.tv_nomListe);
-        tv_nom.setText(this.getItem(i).getNomPersonne());
+        tv_nom.setText(listReservation.get(i).getNomPersonne());
 
         tv_place = view.findViewById(R.id.tv_placeListe);
-        tv_place.setText(this.getItem(i).getNbPlace());
+        tv_place.setText(listReservation.get(i).getNbPlace());
 
         tv_date = view.findViewById(R.id.tv_dateListe);
-        tv_date.setText(this.getItem(i).getBlocReservationDebut());
+        tv_date.setText(listReservation.get(i).getBlocReservationDebut());
 
         return view;
     }

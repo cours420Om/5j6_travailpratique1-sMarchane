@@ -91,17 +91,20 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent_afficherRestau = new Intent(MainActivity.this, ActiviteReservation.class);
                 intent_afficherRestau.putExtra("restaurant", restau);
                 activityResultLauncher.launch(intent_afficherRestau);
+
             }
         });
         btnAfficher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent_afficher = new Intent(MainActivity.this, ActiviteAffichage.class);
-                Bundle bReservation = new Bundle();
-                bReservation.putParcelableArrayList("reservation", listReservation);
-                intent_afficher.putExtras(bReservation);
+                /*Bundle bReservation = new Bundle();
+                listReservation = bReservation.getParcelableArrayList("res");
+                intent_afficher.putExtras(bReservation);*/
+                intent_afficher.putExtra("res", res );
                 intent_afficher.putExtra("restaurant", restau);
-                startActivity(intent_afficher);
+                activityResultLauncher.launch(intent_afficher);
 
 
 
