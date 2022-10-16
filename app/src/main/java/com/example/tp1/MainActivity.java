@@ -99,13 +99,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent_afficher = new Intent(MainActivity.this, ActiviteAffichage.class);
-                /*Bundle bReservation = new Bundle();
-                listReservation = bReservation.getParcelableArrayList("res");
-                intent_afficher.putExtras(bReservation);*/
-                intent_afficher.putExtra("res", res );
+                intent_afficher.putExtra("res", listReservation );
                 intent_afficher.putExtra("restaurant", restau);
-                activityResultLauncher.launch(intent_afficher);
-
+                startActivity(intent_afficher);
+                Log.i("Test4", String.valueOf(listReservation));
 
 
             }

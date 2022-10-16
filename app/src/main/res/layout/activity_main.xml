@@ -46,13 +46,13 @@
             android:id="@+id/btn_reserver"
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            android:text="Réserver une table" />
+            android:text="@string/btn_reserver" />
 
         <Button
             android:id="@+id/btn_afficher"
             android:layout_width="match_parent"
             android:layout_height="59dp"
-            android:text="Afficher les réservations" />
+            android:text="@string/btn_afficher" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

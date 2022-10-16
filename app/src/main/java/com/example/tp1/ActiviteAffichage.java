@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,11 +32,16 @@ public class ActiviteAffichage extends AppCompatActivity {
     TextView nom;
     TextView place;
     TextView date;
+    Spinner sp_date;
+    String dateRecu;
+    String nomRes;
     ArrayList<reservation> listReservation = new ArrayList<reservation>();
-    //ArrayList<reservation> listRes = new ArrayList<reservation>();
+    ArrayList<String> listDate = new ArrayList<>();
+    ArrayList<reservation> dateSelection = new ArrayList<>();
     private ListView ma_liste;
     private adapterReservation adaptateur;
-
+    private int index;
+    private String dateSel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,7 @@ public class ActiviteAffichage extends AppCompatActivity {
         Intent retour = new Intent();
         Context contexte = getApplicationContext();
         int duree = Toast.LENGTH_SHORT;
+
 
 
         tv_aff = (TextView)findViewById(R.id.tv_titreAffichage);
@@ -54,9 +63,10 @@ public class ActiviteAffichage extends AppCompatActivity {
         et_nomRes = (EditText)findViewById(R.id.et_nom);
         et_num = (EditText)findViewById(R.id.et_Phone);
         spn_heureDebut = (Spinner)findViewById(R.id.sp_heureDebut);
-
+        sp_date = (Spinner)findViewById(R.id.sp_dateList);
         Intent extra = getIntent();
         restau = extra.getParcelableExtra("restaurant");
+
 
 
 
@@ -65,65 +75,69 @@ public class ActiviteAffichage extends AppCompatActivity {
 
         ma_liste = (ListView) findViewById(R.id.lv_reservation);
 
-        /*resListe.add(new reservation(1, " " + et_date.getText(), restau.getNbPlacesRestantes(),
-                " " + spn_heureDebut.getSelectedItem(),
-                " " + et_heureDepart.getText(), " " + et_nomRes.getText(), " " + et_num.getText()));*/
+        Intent intent = getIntent();
+        listReservation = getIntent().getParcelableArrayListExtra("res");
 
-
-        /*Intent extra2 = getIntent();
-        resListe = extra2.getParcelableExtra("reservation");*/
-        //Bundle b_rep = extra.getExtras();
-
-
-        //retour.putExtras(b_rep);
-        //ssetResult(RESULT_OK, retour);
-
-
-
-        Bundle b_rep = new Bundle();
-        listReservation = b_rep.getParcelableArrayList("res");
-        //b_rep.getParcelableArrayList("res");
-        retour.putExtras(b_rep);
-        setResult(RESULT_OK, retour);
-        adaptateur = new adapterReservation(this, listReservation);
-        ma_liste.setAdapter(adaptateur);
+        listDate.add(String.valueOf(listReservation.get(0).getDateReservation()));
         Log.i("testeur", String.valueOf(listReservation));
 
-        /*Bundle bReservation = extra.getBundleExtra("res");
-        ArrayList<reservation> listReservation = bReservation.getParcelableArrayList("res");
-        Log.i("testeur", String.valueOf(listReservation));*/
 
 
 
+        sp_date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-        //ArrayList<reservation> listReservation = b_rep.getParcelableArrayList("res");
-        //listReservation.add(res);
-        //b_rep.putParcelableArrayList("res", listReservation);
+                dateRecu = listDate.get(i);
+            }
 
-        //retour.putExtra("reservation", res);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
-
-
-
-        //Log.i("Test2", String.valueOf(resListe.get(0)));
-        //Log.i("testeur", String.valueOf(listReservation.get(0)));
-
-        /*nom.setText("" + res.getNomPersonne());
-        place.setText("" + res.getNbPlace());
-        date.setText("" + res.getBlocReservationDebut() + "" + res.getBlocReservationFin());*/
-
-
-
-        //String reservation = extra.getParcelableExtra("res");
+        sp_date.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                dateSelection.clear();
+                dateSel = (String) adapterView.getItemAtPosition(i);
 
 
+                for(int y = 0; y < listReservation.size(); y++){
 
-        /*Intent intent = getIntent();
-        listReservation = intent.getParcelableArrayListExtra("res");
-        Log.i("testeur", String.valueOf(listReservation));*/
+                    if(listReservation.get(y).getDateReservation().matches(dateSel)){
+                        dateSelection.add(listReservation.get(y));
+                    }
 
 
+                }
 
+                adaptateur = new adapterReservation(getApplicationContext(), listReservation);
+                ma_liste.setAdapter(adaptateur);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        ArrayAdapter<String> adaptateur = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listDate);
+        adaptateur.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_date.setAdapter(adaptateur);
+
+
+        ma_liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Toast.makeText(ActiviteAffichage.this, " " + listReservation.get(i).getNoReservation() + " - " +
+                        listReservation.get(i).getTelPersonne(), Toast.LENGTH_LONG).show();
+
+
+            }
+        });
 
     }
 }

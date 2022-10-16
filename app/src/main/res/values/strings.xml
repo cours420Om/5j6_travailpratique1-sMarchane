@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Travail Pratique 1 - Sif </string>
+    <string name="btn_reserver">Réserver une table</string>
+    <string name="btn_afficher">Afficher une réservation</string>
+    <string name="toastInvalide">Un champ est invalide</string>
+    <string name="btn_reserverDeux">Réserver la table</string>
+    <string name="toastSauvegarder">Reservation sauvegarder</string>
+    <string name="et_Phone"> numéro de telephone </string>
+    <string name="et_nom"> Nom de la personne </string>
+
+
 </resources>

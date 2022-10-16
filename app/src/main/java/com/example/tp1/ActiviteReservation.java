@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ActiviteReservation extends AppCompatActivity {
     TextView tv_place;
@@ -53,6 +56,11 @@ public class ActiviteReservation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activite_reservation);
 
+
+        Resources resources = getResources();
+        String toastSauvegarder = resources.getString(R.string.toastSauvegarder);
+        String toastInvalide = resources.getString(R.string.toastInvalide);
+
         tv_titre = (TextView) findViewById(R.id.tv_titre);
         tv_place = (TextView) findViewById(R.id.tv_place);
         et_date = (EditText)findViewById(R.id.et_date);
@@ -63,19 +71,6 @@ public class ActiviteReservation extends AppCompatActivity {
         btn_reserver = (Button)findViewById(R.id.btn_reserverDeux);
         et_nom = (EditText)findViewById(R.id.et_nom);
         et_num = (EditText)findViewById(R.id.et_Phone);
-        /*ArrayList<String> listHeure = new ArrayList<>();
-        listHeure.add("16:00");
-        listHeure.add("17:30");
-        listHeure.add("19:00");
-        listHeure.add("20:30");
-        listHeure.add("22:00");
-
-        ArrayList<String> listFin = new ArrayList<>();
-        listFin.add("17:29");
-        listFin.add("18:59");
-        listFin.add("20:29");
-        listFin.add("21:59");
-        listFin.add("23:59");*/
         String[] listeDebut = new String[] {"16:00", "17:30", "19:00", "20:30", "22:00"};
         String[] listeFin = new String[] {"17:29", "18:59", "20:29", "21:59", "23:59"};
 
@@ -86,19 +81,20 @@ public class ActiviteReservation extends AppCompatActivity {
                 Intent retour = new Intent();
                 Context contexte = getApplicationContext();
                 String texte = "Un des champs est invalide";
+                String regexStr = "^\\d{10}$";
                 int duree = Toast.LENGTH_SHORT;
 
+                String numero = et_num.getText().toString();
+
                 if(sb_placeReserver.getProgress() < 1 || et_nom.getText().toString().matches("") || et_date.getText().toString().matches("")
-                        || et_num.getText().toString().matches("")){
-                    Toast msg_Toast = Toast.makeText(contexte, texte, duree);
+                        || numero.matches("") || numero.matches(regexStr)){
+                    Toast msg_Toast = Toast.makeText(contexte, toastInvalide, duree);
                     msg_Toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
                     msg_Toast.show();
 
                 }else{
-                    /*res = new reservation(1, " " + et_date.getText() + " " + restau.getNbPlacesRestantes() + " " + spn_heureDebut.getSelectedItem() + " " +
-                            et_heureDepart.getText() + " " + et_nom.getText() + " " + et_num.getText());*/
 
-                     res = new reservation(1, " " + et_date.getText(), restau.getNbPlacesRestantes(),
+                     res = new reservation(1, " " + et_date.getText(), sb_placeReserver.getProgress(),
                              " " + spn_heureDebut.getSelectedItem(),
                              " " + et_heureDepart.getText(), " " + et_nom.getText(), " " + et_num.getText());
 
@@ -107,15 +103,9 @@ public class ActiviteReservation extends AppCompatActivity {
                      Bundle b_rep = new Bundle();
                      b_rep.putParcelableArrayList("res", listReservation);
                      retour.putExtras(b_rep);
-                    //retour.putExtra("reservation", res);
                      setResult(RESULT_OK, retour);
 
-
-                    //retour.putExtra("reservation", res);
-
-
-
-                    Toast msg_Toast2 = Toast.makeText(getApplicationContext(), "La réservation à été sauvegardé", Toast.LENGTH_SHORT);
+                    Toast msg_Toast2 = Toast.makeText(getApplicationContext(), toastSauvegarder, Toast.LENGTH_SHORT);
                     msg_Toast2.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
                     msg_Toast2.show();
                 }
@@ -125,14 +115,9 @@ public class ActiviteReservation extends AppCompatActivity {
             }
         });
 
-
-
         ArrayAdapter<String> adaptateur = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listeDebut);
         adaptateur.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_heureDebut.setAdapter(adaptateur);
-
-
-
 
         spn_heureDebut.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -149,9 +134,6 @@ public class ActiviteReservation extends AppCompatActivity {
 
             }
         });
-
-
-
 
         sb_placeReserver.setMax(10);
         sb_placeReserver.setProgress(1);

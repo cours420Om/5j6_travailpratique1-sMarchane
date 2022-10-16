@@ -32,7 +32,7 @@ public class adapterReservation extends BaseAdapter {
     }
 
     @Override
-    public reservation getItem(int i) {
+    public Object getItem(int i) {
 
         return listReservation.get(i);
     }
@@ -51,10 +51,12 @@ public class adapterReservation extends BaseAdapter {
         tv_nom.setText(listReservation.get(i).getNomPersonne());
 
         tv_place = view.findViewById(R.id.tv_placeListe);
-        tv_place.setText(listReservation.get(i).getNbPlace());
+        tv_place.setText(listReservation.get(i).getNbPlace() + " places ");
 
         tv_date = view.findViewById(R.id.tv_dateListe);
         tv_date.setText(listReservation.get(i).getBlocReservationDebut());
+
+
 
         return view;
     }

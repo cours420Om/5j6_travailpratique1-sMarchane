@@ -76,7 +76,7 @@
         android:layout_marginTop="92dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Nom de la personne"
+        android:hint="@string/et_nom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pb_placeReserve" />
 
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
-        android:hint="Numéro de téléphone"
+        android:hint="@string/et_Phone"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.348"
@@ -98,7 +98,7 @@
         android:layout_width="192dp"
         android:layout_height="45dp"
         android:layout_marginTop="36dp"
-        android:text="Réserver la table"
+        android:text="@string/btn_reserverDeux"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.319"
         app:layout_constraintStart_toStartOf="parent"
